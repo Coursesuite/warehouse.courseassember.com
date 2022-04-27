@@ -32,7 +32,7 @@ function rrmdir($dir) {
 }
 
 // ensure the client workding dir is valid
-$workingdir = realpath("./data/{$verifier->hash}/");
+$workingdir = realpath("./{$verifier->hash}/");
 if (!$workingdir) $workingdir = realpath('.') . "/{$verifier->hash}";
 if (!file_exists($workingdir)) mkdir ($workingdir, 0777, true);
 if (!file_exists($workingdir)) Utils::Stop(403, 'Permissions error');
@@ -97,6 +97,6 @@ $outname = $xmlDoc->organizations[0]->organization[0]->item[0]->title[0]->__toSt
 </head>
 
 <body>
-	<iframe src='<?php echo "./data/{$verifier->hash}/preview/{$href}"; ?>' allowfullscreen='true' webkitallowfullscreen='true' mozallowfullscreen='true' width='100%' height='100%' frameborder='0'></iframe>
+	<iframe src='<?php echo "./{$verifier->hash}/preview/{$href}"; ?>' allowfullscreen='true' webkitallowfullscreen='true' mozallowfullscreen='true' width='100%' height='100%' frameborder='0'></iframe>
 </body>
 </html>

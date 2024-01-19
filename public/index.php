@@ -1,14 +1,18 @@
 <?php
 define('APP',true);
-require_once('../vendor/autoload.php');
 
-header ("Access-Control-Allow-Origin: " . getenv("ORIGIN_URL"));
+$e = getenv("ORIGIN_URL");
+// $e = "http://127.0.0.1:50974"; // localhost
+
+header ("Access-Control-Allow-Origin: " . $e);
 header ("Access-Control-Allow-Headers: *");
 header ("Access-Control-Allow-Methods: POST, OPTIONS");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS' || $_SERVER['REQUEST_METHOD'] === 'GET') {
     die();
 }
+
+require_once('../vendor/autoload.php');
 
 // validate the basic request
 $verifier = Licence::validate(Request::get("hash"));
@@ -138,7 +142,7 @@ switch ($action) {
 		if (file_exists($path)) {
             header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
             header("Cache-Control: public");
-            header("Content-Type: application/zip");
+            header("Content-Type: ".mime_content_type($path)); //application/zip");
             header("Content-Transfer-Encoding: Binary");
             header("Content-Length:".filesize($path));
             header("Content-Disposition: attachment; filename={$name}");
